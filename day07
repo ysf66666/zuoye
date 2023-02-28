@@ -1,0 +1,52 @@
+class Solution {
+public:
+    //1. 检查字符串a是不是字符串b得前身
+    bool isQianshen(string& a, string& b)
+    {
+        //Ⅰ.b得长度比a的长度大 1
+        if(a.length() + 1 != b.length())
+        {
+            return false;
+        }
+        int lenA = a.length(), lenB = b.length();
+        for(int i = 0,j = 0;j < lenB;++j)
+        {
+            if(a[i] == b[j])
+            {
+                i++;
+            }
+            if(i == lenA) //这里已经保证了a的长度+1等于b的长度了，所以这里不用再判断j的大小了
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    int longestStrChain(vector<string>& words) {
+        sort(words.begin(), words.end(), [](string& a, const auto & b)
+        {
+            return a.length() <= b.length();
+        });
+        // //验证一下看看有木有排序成功
+        // for(vector<string>::iterator i = words.begin();i != words.end();++i)
+        // {
+        //     cout << *i << " ";
+        // }
+        int wordsLength = words.size();
+        vector<int> f(wordsLength, 1); //初始化f，大小为wordsLength， 初始值都为1
+        int result = 0;
+        for(int i = 0;i < wordsLength;++i)
+        {
+            for(int j = 0;j < i;++j)
+            {
+                if(isQianshen(words[j], words[i]))
+                {
+                    f[i] = max(f[i], f[j]+1);
+                }
+            }
+            result = max(result, f[i]);
+        }
+
+        return result;
+    }
+};
