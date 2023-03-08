@@ -1,0 +1,54 @@
+<%@page import="test.Data"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>登记</title>
+</head>
+<body>
+<form action="addjudge.jsp" method="get">
+<p style="text-align:center;color: black; font-family: 宋体; font-size: 20px">
+    人口登记页面
+    <br>
+    <br>
+    <br>户别 <input type="radio" name="hubie" value="家庭户" />家庭户  
+        <input type="radio" name="hubie" value="集体户" />集体户 
+    <br>
+    
+    <br>住房类型 <input type="radio" name="housetype" value="家庭住宅" />家庭住宅  
+        <input type="radio" name="housetype" value="集体住宅" />集体住宅  
+        <input type="radio" name="housetype" value="工作地住所" />工作地住所  
+        <input type="radio" name="housetype" value="其他住宅" />其他住宅  
+        <input type="radio" name="housetype" value="无住宅" />无住宅 
+    <br>
+    <br> 本户现住房面积 <input type="text" name="houseS" size="4" /><br>
+    <br> 本户现住房间数 <input type="text" name="home" size="2"/><br>
+    <br> 户主姓名 <input type="text" name="name" size="4"/><br>
+    <br> 身份证号码 <input type="text" name="id" /><br>
+    <br>性别 <input type="radio" name="sex" value="男" />男  
+        <input type="radio" name="sex" value="女" />女
+    <br>
+    <br> 民族 <input type="text" name="minzu" /><br>
+    <br>
+    受教育程度 
+    <select  name="edu"> 
+    <option selected="selected"></option>
+    <option value="研究生">研究生</option>
+    <option value="大学本科">大学本科</option>
+    <option value="大学专科">大学专科</option>
+    <option value="高中">高中</option>
+    <option value="初中">初中</option>
+    <option value="小学">小学</option>
+    <option value="未上过学">未上过学</option>
+    </select>
+    
+    
+    <br><input type="submit" value="提交" /> 
+        <input type="reset" value="重置" />  <br>
+    <br> <input type="button" value="返回菜单" onclick="location.href='menu.jsp'" /> <br>
+</p>
+</form>
+</body>
+</html>
