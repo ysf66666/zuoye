@@ -1,0 +1,35 @@
+public string GuedeMetroWay2(string fromStation, string toStation)
+        {
+            //验证站点存在
+            if (!_stationCollection.ContainsKey(fromStation))
+                return fromStation + " is not contain";
+            if (!_stationCollection.ContainsKey(toStation))
+                return toStation + " is not contain";
+            if (fromStation == toStation) return fromStation;
+
+            StationEnt start = _stationCollection[fromStation];
+            StationEnt end = _stationCollection[toStation];
+            List<Station2Station> stationList;
+            List<LineEnt> lineHis;
+
+            //重调两个最值
+            _minLine = _minTransCount = int.MaxValue;
+
+            //遍历这个起点站所在的线路，然后分别从这些线路出发去寻找目的站点
+            foreach (KeyValuePair<LineEnt,int> line in start.PlaceLine)
+            {
+                stationList = new List<Station2Station>();
+                lineHis = new List<LineEnt>() { line.Key };
+                GuideWay2(0, start, line.Key, end, stationList, lineHis);
+            }
+            //去除站点较多的线路
+            ClearLongerWays();
+            //生成线路的字符串
+            string result = ConvertStationList2String();
+
+            //清空整个查找过程中线路数据
+            _shortestLines.Clear();
+            _shortestWays.Clear();
+
+            return result;
+        }
