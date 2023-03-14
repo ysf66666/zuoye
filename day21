@@ -1,0 +1,41 @@
+public void stright01(int stop_id01,int stop_id02,List<String> list02)
+ 45     {
+ 46         String sql=null;
+ 47         Statement s=null;
+ 48            ResultSet rs=null;
+ 49            Connection conn=mysql.getconn();
+ 50            if(stop_id01<stop_id02)               //起点终点所在位置前后
+ 51            {
+ 52                sql="select stop_name from stop where stop_id >='"+stop_id01+"'"+"and stop_id <='"+stop_id02+"'";
+ 53                try {
+ 54                    s=conn.createStatement();
+ 55                    rs=s.executeQuery(sql);
+ 56                    while(rs.next()) 
+ 57                    {
+ 58                        String stop_name=rs.getString("stop_name");
+ 59                        list02.add(stop_name);
+ 60                    }
+ 61                } catch (SQLException e) {
+ 62                 // TODO Auto-generated catch block
+ 63                 e.printStackTrace();
+ 64             }
+ 65         }
+ 66         else
+ 67         {
+ 68             sql="select stop_name from stop where stop_id >='"+stop_id02+"'"+"and stop_id <='"+stop_id01+"' order by stop_id DESC";
+ 69             try {
+ 70                 s=conn.createStatement();
+ 71                 rs=s.executeQuery(sql);
+ 72                 while(rs.next()) 
+ 73                 {
+ 74                     String stop_name=rs.getString("stop_name");
+ 75                     list02.add(stop_name);
+ 76                 }
+ 77             } catch (SQLException e) {
+ 78                 // TODO Auto-generated catch block
+ 79                 e.printStackTrace();
+ 80             }finally {
+ 81                     mysql.close(rs, s, conn);
+ 82                }
+ 83         }
+ 84     }
