@@ -1,0 +1,73 @@
+package com;
+
+import dao.Sub;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class DBC {
+
+    public void CreateTable(){
+
+
+        Sub sub =new Sub();
+        PreparedStatement preparedStatement=null;
+        try {
+            DB db = new DB();
+            String sql ="CREATE TABLE IF NOT EXISTS `linktable`(" +
+                        "`Id` INT UNSIGNED AUTO_INCREMENT ," +
+                        "`Alink` VARCHAR(255) NOT NULL ," +
+                        "`Blink` VARCHAR(255) NOT NULL ," +
+                        "`Clink` VARCHAR(255) NOT NULL ," +
+                        "`Tname` VARCHAR(255) NOT NULL ," +
+                        "PRIMARY KEY(`Id`)" +
+                        ")ENGINE=INNODB DEFAULT CHARSET=utf8";
+            preparedStatement=db.conn.prepareStatement(sql);
+            preparedStatement.executeUpdate();
+            db.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally{
+        }
+        try {
+            DB db = new DB();
+            String b = "linktable";
+            String sqc = "SELECT * FROM " + b ;
+            preparedStatement=db.conn.prepareStatement(sqc);
+            preparedStatement.executeQuery();
+            while (db.rs.next()){
+                String equ = String.valueOf(db.rs.next());
+
+                for (int i = 0; i < 1; i++) {
+
+                }
+            }
+            db.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+
+        }
+
+    }
+    public void InsertFull(String table_name,String Id,String Alink,String Blink,String Clink,String Tname){
+        DB db = new DB();
+        PreparedStatement preparedStatement=null;
+        try {
+            String sql = "INSERT INTO "+ table_name + " (Id,Alink,Blink,Clink,Tname) values (?,?,?,?,?)";
+            preparedStatement=db.conn.prepareStatement(sql);
+            preparedStatement.setString(1,Id);
+            preparedStatement.setString(2,Alink);
+            preparedStatement.setString(3,Blink);
+            preparedStatement.setString(4,Clink);
+            preparedStatement.setString(5,Tname);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally{
+        }
+
+    }
+
+
+}
